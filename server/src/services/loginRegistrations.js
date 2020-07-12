@@ -41,7 +41,7 @@ class LoginRegistrationServices {
                 name,
                 mobileNo,
                 email,
-                registrationId: registrationData._id,
+                registrationId: userRegistration._id,
             };
             await allUsersServices.createUser(userData);
             logger.info("Registrations");
