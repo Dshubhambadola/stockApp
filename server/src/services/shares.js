@@ -4,6 +4,13 @@ const Promise = require("bluebird");
 const SharesBroughtBy = require("../models/sharesBroughtBy");
 const Shares = require("../models/shares");
 
+const newSocket = global.io;
+let globalSocket;
+newSocket.on("connection", (socket) => {
+    logger.info("Connected succesfully to the socket ...");
+    globalSocket = socket;
+});
+
 class ShareServices {
     async buyShares(sharesCaptureDetails) {
         try {
@@ -38,15 +45,8 @@ class ShareServices {
                 });
                 return updateShareValue;
             });
-            const newSocket = global.io;
-            newSocket.on("connection", (socket) => {
-                logger.info("Connected succesfully to the socket ...");
-                socket.emit("sharesData", updatedData);
-                socket.on("disconnect", (reason) => {
-                    logger.info("Tab closed");
-                // ...
-                });
-            });
+            globalSocket.emit("sharesData", updatedData);
+
             // console.log("updatedData", updatedData);
         } catch (err) {
             throw logger.error(err);
