@@ -8,7 +8,8 @@ const session = require("express-session");
 
 const app = express();
 const server = http.createServer(app);
-const io = require("socket.io")(server);
+global.io = require("socket.io")(server);
+require("./jobs/shares");
 
 const logger = require("pino")();
 require("dotenv").config();
@@ -45,6 +46,7 @@ mongoose.connect(MONGODB_URI,
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
+        useFindAndModify: false,
     });
 const db = mongoose.connection;
 db.on("error", (error) => {
@@ -53,9 +55,9 @@ db.on("error", (error) => {
 db.once("open", async () => {
     logger.info("Connected to mongoose");
 });
-// app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "../client/build/index.html"));
-// });
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 app.use(require("./routes"));
 
 // io.on("connection", (socket) => {
@@ -63,11 +65,11 @@ app.use(require("./routes"));
 //     // socket.on("join", (data) => {
 //     //     logger.info(data);
 //     // });
-//     // socket.on("disconnect", (reason) => {
-//     //     logger.info("Tab closed");
-//     // // ...
-//     // });
-//
+//     socket.on("disconnect", (reason) => {
+//         logger.info("Tab closed");
+//     // ...
+//     });
+//     //
 //     // const news = [
 //     //     { title: "The cure of the Sadness is to play Videogames", date: "04.10.2016" },
 //     //     { title: "Batman saves Racoon City, the Joker is infected once again", date: "05.10.2016" },
