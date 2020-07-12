@@ -45,7 +45,7 @@ class ShareServices {
                 });
                 return updateShareValue;
             });
-            globalSocket.emit("sharesData", updatedData);
+            // globalSocket.emit("sharesData", updatedData);
 
             // console.log("updatedData", updatedData);
         } catch (err) {
