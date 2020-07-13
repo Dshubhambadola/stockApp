@@ -4,7 +4,7 @@
   "description": "A small app to check your stocks",
   "main": "server.js",
   "scripts": {
-    "Start": "node server/src/index.js"
+    "start": "node server/src/index.js"
   },
   "repository": {
     "type": "git",
