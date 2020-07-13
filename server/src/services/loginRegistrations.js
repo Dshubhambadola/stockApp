@@ -11,11 +11,11 @@ const UserService = require("./users");
 const allUsersServices = new UserService();
 
 const {
-    JWT_SECRET, CRYPTO_SECRET, JWT_ALGORITHM, CRYPTO_ALGORITHM,
+    JWT_SECRET, CRYPTO_SECRET, JWT_ALGORITHM, CRYPTO_ALGORITHM, JWT_EXPIRY_SECONDS,
 } = process.env;
 
 const jwtSecretKey = JWT_SECRET;
-const jwtExpirySeconds = 60 * 60 * 24 * 2;
+const jwtExpirySeconds = JWT_EXPIRY_SECONDS;
 
 class LoginRegistrationServices {
     async registration(registrationData) {
