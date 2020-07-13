@@ -1,4 +1,3 @@
-const logger = require("pino")();
 const SharesService = require("../../services/shares");
 
 const allShareServices = new SharesService();
@@ -10,7 +9,8 @@ const sharesHealthCheck = (req, res) => {
 const buyShares = async (req, res) => {
     try {
         const sharesCaptured = req.body;
-        await allShareServices.buyShares(sharesCaptured);
+        const { user: userEmail } = req;
+        await allShareServices.buyShares({ ...sharesCaptured, userEmail });
         return res.status(201).send("Shares Brought successfully");
     } catch (err) {
         throw res.status(500).send(err || "Process failed");
@@ -19,8 +19,8 @@ const buyShares = async (req, res) => {
 
 const userShares = async (req, res) => {
     try {
-        const userId = req.body;
-        const allUserShares = await allShareServices.getUserShares(userId);
+        const { user } = req;
+        const allUserShares = await allShareServices.getUserShares(user);
         return res.status(201).send(allUserShares);
     } catch (err) {
         throw res.status(500).send(err || "Sorry For The Inconvenience ");

@@ -15,8 +15,9 @@ const registration = async (req, res) => {
 const login = async (req, res) => {
     try {
         const loginData = req.body;
-        const userToken = await allLoginRegistrationServices.login(loginData);
-        return res.status(201).send(userToken);
+        const { status, message } = await allLoginRegistrationServices.login(loginData);
+
+        return res.status(status).send(message);
     } catch (error) {
         throw res.status(500).send(error || "Registration failed");
     }

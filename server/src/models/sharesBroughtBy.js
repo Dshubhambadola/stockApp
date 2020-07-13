@@ -7,8 +7,8 @@ const schema = new Schema({
     companyName: {
         type: String,
     },
-    userId: {
-        type: ObjectId,
+    userEmail: {
+        type: String,
         index: true,
         required: true,
     },

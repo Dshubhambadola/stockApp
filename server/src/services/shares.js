@@ -23,9 +23,9 @@ class ShareServices {
         }
     }
 
-    async getUserShares(userId) {
+    async getUserShares(userEmail) {
         try {
-            const userShares = await SharesBroughtBy.findOne({ userId });
+            const userShares = await SharesBroughtBy.findOne({ userEmail });
             return userShares;
         } catch (err) {
             throw logger.error(err);
@@ -46,8 +46,6 @@ class ShareServices {
                 return updateShareValue;
             });
             // globalSocket.emit("sharesData", updatedData);
-
-            // console.log("updatedData", updatedData);
         } catch (err) {
             throw logger.error(err);
         }

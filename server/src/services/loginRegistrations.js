@@ -63,9 +63,9 @@ class LoginRegistrationServices {
                     algorithm: JWT_ALGORITHM,
                     expiresIn: jwtExpirySeconds,
                 });
-                return userToken;
+                return { status: 201, message: userToken };
             }
-            return "Username or Password incorrect. Please check!";
+            return { status: 401, message: "Username or Password incorrect. Please check!" };
         } catch (err) {
             throw new Error(err || "error in creating user");
         }
