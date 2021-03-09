@@ -1,2 +1,2 @@
 # stockApp
-A small app to keep a check on your stockss.
+A small app to keep a check on your stocksss.
